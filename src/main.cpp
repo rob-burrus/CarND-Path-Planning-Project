@@ -16,11 +16,6 @@ using namespace std;
 using json = nlohmann::json;
 
 
-struct Lane{
-  double cost;
-  double ref_val;
-};
-
 // For converting back and forth between radians and degrees.
 constexpr double pi() { return M_PI; }
 double deg2rad(double x) { return x * pi() / 180; }
@@ -284,7 +279,7 @@ int main() {
               double distance_ahead = check_car_s - car_s;
               double cost = 0;
 
-              if(distance_ahead < 15 && distance_ahead > -20 && lane != car_lane){
+              if(distance_ahead < 15 && distance_ahead > -25 && lane != car_lane){
                 //There is a car too close for a safe lane change. Register a overwhelming cost so we never attempt this
                 cost+=10000;
 
@@ -294,14 +289,14 @@ int main() {
                 }
               }
 
-              if(distance_ahead > 0 && distance_ahead < 100){
+              if(distance_ahead > 0 && distance_ahead < 60){
                 //register a cost that is proportional to the speed difference between this car and my target speed
                 cost += 10*target_speed_diff;
               }
 
-              if(distance_ahead > 0 && distance_ahead < 100){
+              if(distance_ahead > 0 && distance_ahead < 60){
                 //register a cost proportional to the distance the car is from our ego
-                cost += 75-distance_ahead;
+                cost += 60-distance_ahead;
               }
 
 
