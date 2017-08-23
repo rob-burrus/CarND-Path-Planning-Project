@@ -1,6 +1,3 @@
-# CarND-Path-Planning-Project
-Self-Driving Car Engineer Nanodegree Program
- 
 # Model Documentation
 The model can be broken down into 2 major steps: (1) Calculating the cost of each lane, selecting the "desired lane" based on these costs, and then choosing the lane ("chosen lane") based on safety (2) Using the "chosen lane" and previous path points to generate a a trajectory
 ### Choosing the lane
@@ -12,8 +9,10 @@ Calculate the cost of being in each lane by evaluating the sensor fusion data ab
 
 The lane with the least cost becomes our "desired lane". If our desired lane is next to our current lane, we simply set our "chosen lane" to be the desired lane. If our desired lane is more than 1 lane away (i.e. current lane = 0 na ddesired lane = 2) then we check whether it is safe to move through the middle lane. If so, we set the chosen lane to the middle lane. If not, we stay in our lane. 
 
-### Creating a trajectory
+There is one more important step when evaluating the sensor fusion data. If there is a car close in-front of us in our lane, then we changed our target velocity to match the velocity of this car. The car then effectively acts as a "lead car" until we switch lanes. 
 
+### Creating a trajectory
+The trajectory generation process is adapted from the project walkthrough video. Start by adding the last 2 "previous path" points into an "anchor" list. These two points act as anchors for the start of our new trajectory. Then add 3 more "anchor points" that are spaced 40, 60 and 90 meters and which are centered in our "chosen lane". These 5 points make up the "anchor points" for our new trajectory. We fit a spline to these points, and because we are fitting a spline to points that are spaced out 40, 60, and 90 meters ahead, the spline generates a smooth trajectory even when this new trajectory is enacting a lane change. This spacing allows the car to meet jerk requirements. We then can then "fill" this new trajectory with points along the spline. These "fill points" are spaced to match our target velocity. While generating these fill points, the velocity is incremented/decremented to match target velocity that was set while evaluating the sensor fusion data. This newly created trajectory is appended onto the previous path trajectory that was not executed by the simulator. 
  
 ### Simulator. You can download the Term3 Simulator BETA which contains the Path Planning Project from the [releases tab](https://github.com/udacity/self-driving-car-sim/releases).
 
