@@ -1,17 +1,18 @@
 # CarND-Path-Planning-Project
 Self-Driving Car Engineer Nanodegree Program
  
-## Model Documentation
+# Model Documentation
 The model can be broken down into 2 major steps: (1) Calculating the cost of each lane, selecting the "desired lane" based on these costs, and then choosing the lane ("chosen lane") based on safety (2) Using the "chosen lane" and previous path points to generate a a trajectory
-# Choosing the lane
+### Choosing the lane
 Calculate the cost of being in each lane by evaluating the sensor fusion data about other cars on the road. I am using 4 different costs:
 1. If the car is in another lane and is close ahead or close behind, register an overwhelming cost because it is not safe to go into this lane. 
 2. If the car is ahead of us (in any lane), register a cost proportional to the difference between the car's speed and our target speed (49.5 mph). The slower the car is going relative to our target speed, the more cost it will accrue
 3. Register a cost proportional to the distance the car is from our car. The closer the car is to us, the higher cost it will generate.
 4. Register a small cost for any lane that is not our current lane. We want to stay in our lane unless one of the above costs compells us to change
+
 The lane with the least cost becomes our "desired lane". If our desired lane is next to our current lane, we simply set our "chosen lane" to be the desired lane. If our desired lane is more than 1 lane away (i.e. current lane = 0 na ddesired lane = 2) then we check whether it is safe to move through the middle lane. If so, we set the chosen lane to the middle lane. If not, we stay in our lane. 
 
-# Creating a trajectory
+### Creating a trajectory
 
  
 ### Simulator. You can download the Term3 Simulator BETA which contains the Path Planning Project from the [releases tab](https://github.com/udacity/self-driving-car-sim/releases).
