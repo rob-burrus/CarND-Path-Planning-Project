@@ -1,5 +1,8 @@
 # Path Planning
 
+<a href="https://imgflip.com/gif/20lv1c"><img src="https://i.imgflip.com/20lv1c.gif" title="made at imgflip.com"/></a><a href="https://imgflip.com/gif/20lw16"><img src="https://i.imgflip.com/20lw16.gif" title="made at imgflip.com"/></a>
+<a href="https://imgflip.com/gif/20ly7i"><img src="https://i.imgflip.com/20ly7i.gif" title="made at imgflip.com"/></a><a href="https://imgflip.com/gif/20lyie"><img src="https://i.imgflip.com/20lyie.gif" title="made at imgflip.com"/></a>
+
 ## Overview
 The goal of this project is to build a path planner that creates smooth, safe trajectories for the car to follow. The simulated highway track has other vehicles driving +-10 MPH of the 50MPH speed limit. The car should try to go as close to the 50 MPH speed limit as possible, which means passing slower traffic when appropriate (other cars will try to change lanes too). The simulator transmits the car's localization and sensor fusion data to be used by the path planner. 
 
@@ -70,13 +73,7 @@ There is one more important step when evaluating the sensor fusion data. If ther
 ### Creating a trajectory
 Start by adding the last 2 "previous path" points into an "anchor" list. These two points act as anchors for the start of the new trajectory. Then add 3 more "anchor points" that are spaced 40, 60 and 90 meters and which are centered in the "chosen lane". These 5 points make up the "anchor points" for the new trajectory. Then, using this [spline tool](http://kluge.in-chemnitz.de/opensource/spline/), fit a spline to these points, and because we are fitting a spline to points that are spaced out 40, 60, and 90 meters ahead, the spline generates a smooth trajectory even when this new trajectory is enacting a lane change. This spacing allows the car to meet jerk requirements. We then can then "fill" this new trajectory with points along the spline. These "fill points" are spaced to match our target velocity. While generating these fill points, the velocity is incremented/decremented to match target velocity that was set while evaluating the sensor fusion data. This newly created trajectory is appended onto the previous path trajectory that was not executed by the simulator. 
 
-### Path planner in action
 
-![pathplanner](output1.png)
-
-![pathplanner](output2.png)
-
-![pathplanner](output3.png)
 
 ## Dependencies
 * Udacity Simulator. Download the Term3 Simulator which contains the Path Planning Project from the [releases tab](https://github.com/udacity/self-driving-car-sim/releases).
