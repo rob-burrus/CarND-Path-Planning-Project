@@ -279,7 +279,7 @@ int main() {
               double distance_ahead = check_car_s - car_s;
               double cost = 0;
 
-              if(distance_ahead < 15 && distance_ahead > -25 && lane != car_lane){
+              if(distance_ahead < 15 && distance_ahead > -22 && lane != car_lane){
                 //There is a car too close for a safe lane change. Register a overwhelming cost so we never attempt this
                 cost+=10000;
 
@@ -444,7 +444,7 @@ int main() {
               if(ref_vel < target_vel){
                 ref_vel += .15;
               }else{
-                ref_vel -= .15;
+                ref_vel -= .2;
               }
               double N = (target_dist/(.02*ref_vel/2.24));
               double x_point = x_add_on+target_x/N;
